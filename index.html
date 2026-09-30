@@ -10,275 +10,212 @@
     --gold:#c98a00; --text:#182720; --muted:#5f7568; --line:#dbe5de;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{height:100%;background:var(--bg);color:var(--text);
-    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
-  .deck{position:relative;width:100vw;height:100vh}
-  .slide{position:absolute;inset:0;display:none;flex-direction:column;
-    padding:5vh 7vw;animation:fadein .45s ease}
-  .slide.active{display:flex}
-  @keyframes fadein{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-  .tag{display:inline-block;font-size:1.6vh;letter-spacing:.35em;color:var(--green-hi);
-    border:1px solid var(--green);padding:.8vh 1.6vh;border-radius:99px;margin-bottom:3vh;width:fit-content}
-  h1{font-size:7.2vh;line-height:1.15;font-weight:700}
-  h2{font-size:5vh;margin-bottom:3.5vh;font-weight:700}
-  h2 .en{color:var(--muted);font-size:2.2vh;font-weight:400;margin-left:1.2vh;letter-spacing:.15em}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);
+    font-family:"PingFang SC","Hiragino Sans GB","Microsoft YaHei",system-ui,sans-serif;line-height:1.7}
+  /* 顶部进度条 */
+  #bar{position:fixed;top:0;left:0;height:.6vh;width:0;background:var(--green);z-index:99;transition:width .1s linear}
+  section{min-height:100vh;padding:10vh 8vw 8vh;display:flex;flex-direction:column;justify-content:center;
+    border-bottom:1px solid var(--line);position:relative}
+  .tag{display:inline-block;font-size:1.5vh;letter-spacing:.35em;color:var(--green-hi);
+    border:1px solid var(--green);padding:.7vh 1.6vh;border-radius:99px;margin-bottom:3vh;width:fit-content}
+  h1{font-size:6.8vh;line-height:1.18;font-weight:700}
+  h2{font-size:4.6vh;font-weight:700;margin-bottom:1vh}
+  h2 .no{color:var(--green-hi);margin-right:1.2vh}
+  .en{color:var(--muted);font-size:2vh;font-weight:400;letter-spacing:.15em;margin-left:1.2vh}
   .accent{color:var(--green-hi)} .gold{color:var(--gold)}
-  .sub{color:var(--muted);font-size:2.4vh;margin-top:2vh}
-  .pageno{position:absolute;bottom:2.6vh;right:3vw;font-size:1.8vh;color:var(--muted)}
-  .brand{position:absolute;bottom:2.6vh;left:3vw;font-size:1.8vh;color:var(--muted);letter-spacing:.2em}
-  .cols{display:flex;gap:3vw;flex:1;min-height:0}
-  .card{background:var(--panel);border:1px solid var(--line);border-radius:1.6vh;
-    padding:2.6vh 2vw;box-shadow:0 .6vh 2.4vh rgba(20,60,40,.06)}
-  ul.clean{list-style:none}
-  ul.clean li{padding:1.2vh 0;font-size:2.6vh;border-bottom:1px dashed var(--line)}
+  .sub{color:var(--muted);font-size:2.2vh;margin-top:1.4vh}
+  .cols{display:flex;gap:2.4vw;margin-top:4vh;align-items:stretch}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:1.4vh;
+    padding:3vh 1.8vw;flex:1;box-shadow:0 .6vh 2.4vh rgba(20,60,40,.06)}
+  .card h3{font-size:2.5vh;margin-bottom:1.2vh}
+  .card h3 b{color:var(--green-hi);margin-right:.8vh}
+  .card p{font-size:2vh;color:var(--muted)}
+  ul.clean{list-style:none;margin-top:3vh}
+  ul.clean li{padding:1.4vh 0;font-size:2.5vh;border-bottom:1px dashed var(--line)}
   ul.clean li:last-child{border-bottom:none}
   ul.clean li b{color:var(--green-hi)}
-  table{width:100%;border-collapse:collapse;font-size:2.5vh}
-  th,td{padding:1.6vh 1.2vw;text-align:left;border-bottom:1px solid var(--line)}
-  th{color:var(--muted);font-weight:500;font-size:2.1vh}
-  .demo-num{font-size:9vh;font-weight:800;color:var(--green);opacity:.9;line-height:1}
-  .poster-frame{background:#fff;border:1px solid var(--line);border-radius:1.2vh;padding:.8vh;
-    box-shadow:0 2vh 6vh rgba(20,60,40,.14);height:74vh;display:flex;justify-content:center}
+  .stage{display:flex;gap:3.5vw;margin-top:3.5vh;align-items:center}
+  .stage .txt{flex:1}
+  .stage .txt h3{font-size:2.8vh;margin-bottom:1.2vh}
+  .stage .txt p{font-size:2.1vh;color:var(--muted)}
+  .step{display:inline-block;background:#e7f2ec;color:var(--green-hi);font-size:1.8vh;
+    font-weight:600;border-radius:.8vh;padding:.5vh 1.2vh;margin:0.4vh .5vh .4vh 0}
+  .poster-frame{background:#fff;border:1px solid var(--line);border-radius:1.2vh;padding:1vh;
+    box-shadow:0 1.2vh 4vh rgba(20,60,40,.12);height:72vh;flex:0 0 auto}
   .poster-frame img{height:100%;border-radius:.8vh}
-  video{max-height:72vh;border-radius:1.2vh;box-shadow:0 2vh 6vh rgba(20,60,40,.14);background:#000}
-  .skillgroups{display:grid;grid-template-columns:repeat(5,1fr);gap:1.2vw;flex:1;min-height:0}
-  .skillgroups h3{font-size:2vh;color:var(--gold);margin-bottom:1.2vh}
-  .skillgroups .card{padding:1.8vh 1vw;overflow:hidden}
-  .chip{display:inline-block;font-size:1.9vh;background:#eef4ef;border:1px solid var(--line);
-    border-radius:.8vh;padding:.6vh .9vh;margin:.35vh .3vh;color:var(--text)}
-  .chip.star{background:#e2f3ea;border-color:var(--green);color:var(--green-hi);font-weight:600}
-  .note{font-size:1.9vh;color:var(--muted);margin-top:1.6vh}
-  .qrwrap{display:flex;gap:4vw;align-items:center;flex:1}
-  .qrbox{background:#fff;border:1px solid var(--line);border-radius:1.6vh;padding:2vh;
-    width:34vh;height:34vh;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 1vh 3vh rgba(20,60,40,.1)}
-  .qrbox img{width:100%;border-radius:1vh}
-  .bigprice{font-size:11vh;font-weight:800;color:var(--gold);line-height:1.1}
-  .pulse{display:inline-block;background:var(--gold);color:#fff;font-weight:700;
-    font-size:2.2vh;padding:1vh 2vh;border-radius:.9vh;animation:pulse 1.6s infinite}
-  @keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-  .hint{position:absolute;bottom:2.6vh;left:50%;transform:translateX(-50%);
-    font-size:1.7vh;color:var(--muted)}
+  video{max-height:64vh;border-radius:1.2vh;box-shadow:0 1.2vh 4vh rgba(20,60,40,.15);background:#000}
+  .skillgroups{display:grid;grid-template-columns:repeat(5,1fr);gap:1.1vw;margin-top:3.5vh}
+  .skillgroups h3{font-size:2vh;color:var(--gold);margin-bottom:1vh}
+  .skillgroups .card{padding:1.8vh 1vw}
+  .chip{display:inline-block;font-size:1.8vh;background:#eef4f0;border:1px solid var(--line);
+    border-radius:.8vh;padding:.5vh .9vh;margin:.4vh .3vh;color:var(--text)}
+  .chip.star{background:#e2f2e9;border-color:var(--green);color:var(--green-hi);font-weight:600}
+  .note{font-size:1.9vh;color:var(--muted);margin-top:2vh}
+  .cta{background:#0f2b1e;color:#eaf5ef;border-radius:2vh;padding:6vh 4vw;margin-top:4vh;
+    display:flex;gap:4vw;align-items:center}
+  .bigprice{font-size:9.5vh;font-weight:800;color:#ffd65c;line-height:1.1}
+  .pulse{display:inline-block;background:#ffd65c;color:#1a1a05;font-weight:700;
+    font-size:2.2vh;padding:1vh 2vh;border-radius:.9vh;margin-top:2vh}
+  .qrbox{background:#fff;border-radius:1.4vh;padding:1.6vh;width:30vh;height:30vh;flex:0 0 auto}
+  .qrbox img{width:100%;border-radius:.8vh}
+  .qrbox p{font-size:1.7vh;color:#333;text-align:center;margin-top:.8vh}
+  .brand{position:absolute;bottom:3vh;left:8vw;font-size:1.7vh;color:var(--muted);letter-spacing:.2em}
+  a{color:var(--green-hi)}
 </style>
 </head>
 <body>
-<div class="deck">
+<div id="bar"></div>
 
-  <!-- 1 封面 -->
-  <section class="slide active">
-    <div class="tag">SNAIL AI ACADEMY · 直播课</div>
-    <h1>零基础认识<span class="accent">"龙虾"</span></h1>
-    <h1 style="font-size:5.2vh;margin-top:1.5vh">一个替你干活的 AI 员工</h1>
-    <div class="sub">Robin Luo · 蜗牛AI 创始人 · 2026年9月30日晚</div>
-    <div style="margin-top:5vh" class="card">
-      <ul class="clean" style="font-size:2.4vh">
-        <li>今晚 <b>5 个现场演示</b>：生成海报 → 海报动起来 → PDF 填表签字 → 收发 Email → 浏览器自动化</li>
-        <li>眼见为实：<b>全程只说一句话</b>，看 AI 把活干完</li>
-      </ul>
+<!-- 封面 -->
+<section style="min-height:100vh">
+  <div class="tag">S N A I L &nbsp; A I &nbsp; L I V E &nbsp; · &nbsp; 2026-09-30</div>
+  <h1>零基础，认识<span class="accent">「龙虾」</span><br>今晚一小时，看 AI 怎么替你干活</h1>
+  <p class="sub">主讲：Robin Luo（蜗牛AI 创始人） · 面向完全没有接触过龙虾的新朋友</p>
+  <p class="sub">今晚全程真机演示：<b>海报 → 视频 → PDF 签字 → 收发 Email → 浏览器自动化</b></p>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
+
+<!-- 龙虾是什么 -->
+<section>
+  <h2><span class="no">01</span>「龙虾」是什么？<span class="en">WORKBUDDY</span></h2>
+  <p class="sub">一句话：它不是聊天机器人，是一名<b class="accent">真的会动手干活的 AI 员工</b>。</p>
+  <div class="cols">
+    <div class="card"><h3><b>💬</b>聊天机器人</h3><p>你问它答，说完就忘。答案要你自己复制、粘贴、执行。</p></div>
+    <div class="card"><h3><b>🦞</b>龙虾（WorkBuddy）</h3><p>你说需求，它直接读文件、跑程序、生成成品、发邮件、上线网页——交付的就是结果。</p></div>
+  </div>
+  <div class="cols">
+    <div class="card"><h3><b>🧠</b>能力地图</h3><p>写文档 · 做海报 · 生成视频 · 处理 PDF · 收发邮件 · 操作浏览器 · 自动化定时任务 · 做网站上线</p></div>
+    <div class="card"><h3><b>📖</b>技能 = 岗位培训手册</h3><p>给 AI 装一个「技能」，就等于给员工做了一次岗位培训。技能库越丰富，它能干的活越多。</p></div>
+  </div>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
+
+<!-- 演示1 海报 -->
+<section>
+  <h2><span class="no">02</span>现场演示 ① 一句话生成海报</h2>
+  <div class="stage">
+    <div class="txt">
+      <h3>现在，观众出题</h3>
+      <p>现场为 <b class="accent">10 月 24 日蜗牛AI 第二期开课</b> 生成一张招生海报。</p>
+      <p style="margin-top:1.5vh">
+        <span class="step">① 说一句话需求</span>
+        <span class="step">② AI 生成画面</span>
+        <span class="step">③ 自动排版文字</span>
+        <span class="step">④ 成品交付</span>
+      </p>
+      <p class="note">右边就是提前生成的备份成品 —— 现场如果网络慢，直接展示这张，流程一样真。</p>
     </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">1 / 10</div>
-    <div class="hint">← → 方向键或点击翻页</div>
-  </section>
+    <div class="poster-frame"><img src="images/poster.png" alt="第二期开课海报"></div>
+  </div>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-  <!-- 2 龙虾是什么 -->
-  <section class="slide">
-    <h2>龙虾是什么<span class="en">WHAT IS LOBSTER / WORKBUDDY</span></h2>
-    <table>
-      <tr><th></th><th>聊天机器人</th><th class="accent">龙虾（AI 员工）</th></tr>
-      <tr><td class="gold">工作方式</td><td>你问它答，答案自己拿去用</td><td><b>你说结果，它去干</b>，成品递到你面前</td></tr>
-      <tr><td class="gold">活动范围</td><td>活在网页里，碰不到你的电脑</td><td>长在你电脑上：读文件、写文件、跑程序、上网</td></tr>
-      <tr><td class="gold">记忆</td><td>每次从零开始</td><td>有记忆，记住你的偏好和规矩</td></tr>
-    </table>
-    <div class="sub" style="margin-top:3.5vh">💬 "你雇一个员工，不会只让他出主意——你会让他把活干完。"</div>
-    <div class="brand">SNAIL AI</div><div class="pageno">2 / 10</div>
-  </section>
-
-  <!-- 3 能力地图 -->
-  <section class="slide">
-    <h2>龙虾能干什么<span class="en">CAPABILITY MAP</span></h2>
-    <div class="cols">
-      <div class="card" style="flex:1"><h3 style="color:var(--green-hi);font-size:2.8vh">📄 文档处理</h3>
-        <div class="sub" style="font-size:2.2vh">PDF 签字/填表 · Word 排版 · Excel 清洗 · PPT 生成</div></div>
-      <div class="card" style="flex:1"><h3 style="color:var(--green-hi);font-size:2.8vh">🎨 内容生成</h3>
-        <div class="sub" style="font-size:2.2vh">一句话出图 · 出视频 · 出 3D · 出网站</div></div>
-      <div class="card" style="flex:1"><h3 style="color:var(--green-hi);font-size:2.8vh">⏰ 自动化</h3>
-        <div class="sub" style="font-size:2.2vh">定时任务：每天早上 7 点自动发邮件摘要</div></div>
+<!-- 演示2 海报动起来 -->
+<section>
+  <h2><span class="no">03</span>现场演示 ② 让海报动起来</h2>
+  <div class="stage">
+    <div class="txt">
+      <h3>静态海报 → 会动的视频</h3>
+      <p>同一句话接着说：「让这只蜗牛动起来。」</p>
+      <p style="margin-top:1.5vh">
+        <span class="step">以海报为首帧</span>
+        <span class="step">AI 补间动作</span>
+        <span class="step">几秒出片</span>
+      </p>
+      <p class="note">朋友圈广告、小红书、视频号封面，都能这么一键生成。</p>
     </div>
-    <div class="cols" style="margin-top:2.5vh">
-      <div class="card" style="flex:1"><h3 style="color:var(--green-hi);font-size:2.8vh">🧠 记忆</h3>
-        <div class="sub" style="font-size:2.2vh">"以后我的发票都用这个模板" —— 它记住</div></div>
-      <div class="card" style="flex:1"><h3 style="color:var(--green-hi);font-size:2.8vh">🔌 连接器</h3>
-        <div class="sub" style="font-size:2.2vh">接邮箱 · 企业微信 · GitHub 等外部服务</div></div>
-      <div class="card" style="flex:1"><h3 style="color:var(--gold);font-size:2.8vh">📚 技能系统</h3>
-        <div class="sub" style="font-size:2.2vh">装上技能 = 岗前培训变专家（下半场讲）</div></div>
-    </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">3 / 10</div>
-  </section>
+    <video src="videos/poster_video.mp4" autoplay muted loop playsinline></video>
+  </div>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-  <!-- 4 演示1 海报 -->
-  <section class="slide">
-    <div class="cols">
-      <div style="flex:1.1;display:flex;flex-direction:column;justify-content:center">
-        <div class="demo-num">演示 ①</div>
-        <h2 style="margin-top:1.5vh">一句话生成海报<span class="en">AI POSTER</span></h2>
-        <ul class="clean">
-          <li>指令：<b>"帮我做一张 10 月 24 日蜗牛AI第二期开课海报"</b></li>
-          <li>AI 自己：出方案 → 生成视觉 → 合成文字</li>
-          <li>找设计师：<span class="gold">$300 / 张 · 等两天</span></li>
-          <li>用龙虾：<b>一句话 · 3 分钟</b></li>
-        </ul>
-      </div>
-      <div style="flex:.9"><div class="poster-frame"><img src="images/poster.png" alt="开课海报"></div></div>
-    </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">4 / 10</div>
-  </section>
+<!-- 演示3 PDF 签字 -->
+<section>
+  <h2><span class="no">04</span>现场演示 ③ PDF 填表 + 签字</h2>
+  <ul class="clean">
+    <li><b>生成表格</b> — 现场生成《Business Needs Registration Form》，问题全部来自官网免费「AI 咨询」</li>
+    <li><b>白纸签名</b> — 拿一张白纸签名 → 手机拍照 → AI 自动抠出签名嵌入 PDF</li>
+    <li><b>立刻可用</b> — 合同、报名表、报价单，今晚学会，回家就能用</li>
+  </ul>
+  <p class="note">演示文件：《企业需求报名表》.pdf（8 个问题 + 签名区，见分享附件）</p>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-  <!-- 5 演示2 海报动起来 -->
-  <section class="slide">
-    <div class="cols">
-      <div style="flex:1.1;display:flex;flex-direction:column;justify-content:center">
-        <div class="demo-num">演示 ②</div>
-        <h2 style="margin-top:1.5vh">海报动起来<span class="en">POSTER TO VIDEO</span></h2>
-        <ul class="clean">
-          <li>刚才那张静态海报 → <b>6 秒短视频</b></li>
-          <li>蜗牛吉祥物打字、抬头、挥手打招呼</li>
-          <li>发朋友圈 / 小红书的动态宣传素材</li>
-          <li>指令：<b>"让这张海报动起来"</b></li>
-        </ul>
-      </div>
-      <div style="flex:.9;display:flex;align-items:center;justify-content:center">
-        <video src="videos/poster_video.mp4" controls muted loop></video>
-      </div>
-    </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">5 / 10</div>
-  </section>
+<!-- 演示4 Email -->
+<section>
+  <h2><span class="no">05</span>现场演示 ④ 收发 Email</h2>
+  <div class="cols">
+    <div class="card"><h3><b>📥</b>收</h3><p>让 AI 读邮箱：找出一封指定邮件，总结内容，提取关键信息。</p></div>
+    <div class="card"><h3><b>📤</b>发</h3><p>口述意思，AI 起草英文回复，确认后直接发出——今晚现场回复一封真实邮件。</p></div>
+    <div class="card"><h3><b>🤖</b>为什么有用</h3><p>每天几十封邮件的老板，最懂这件事值多少钱。</p></div>
+  </div>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-  <!-- 6 演示3 PDF 填表签字 -->
-  <section class="slide">
-    <div class="demo-num">演示 ③</div>
-    <h2 style="margin-top:1.5vh">PDF 填表 + AI 签字<span class="en">PDF & E-SIGNATURE</span></h2>
-    <div class="cols">
-      <div class="card" style="flex:1">
-        <h3 style="color:var(--green-hi);font-size:2.6vh;margin-bottom:1.5vh">传统流程</h3>
-        <ul class="clean" style="font-size:2.3vh">
-          <li>打印表格 → 手写填完 → 签名</li>
-          <li>扫描 → 传电脑 → 发邮件</li>
-          <li>全套 <span class="gold">20 分钟起步</span></li>
-        </ul>
-      </div>
-      <div class="card" style="flex:1">
-        <h3 style="color:var(--green-hi);font-size:2.6vh;margin-bottom:1.5vh">龙虾流程</h3>
-        <ul class="clean" style="font-size:2.3vh">
-          <li>《企业需求报名表》8 个问题，AI 从官网筛选生成</li>
-          <li>白纸签名 <b>拍照</b> → 一句话</li>
-          <li>AI 裁剪、透明化、<b>自动嵌入签名框</b> → 3 分钟搞定</li>
-        </ul>
-      </div>
-    </div>
-    <div class="note">💡 今晚回家你就能用：让 AI 帮你签任何 PDF（合同 / 表格 / 协议）</div>
-    <div class="brand">SNAIL AI</div><div class="pageno">6 / 10</div>
-  </section>
+<!-- 演示5 浏览器自动化 -->
+<section>
+  <h2><span class="no">06</span>现场演示 ⑤ 浏览器自动化</h2>
+  <ul class="clean">
+    <li><b>它是什么</b> — AI 直接操作浏览器：登录账号 → 找到页面 → 点击 → 下载文件</li>
+    <li><b>今晚演示</b> — 登录 Plaud（录音转写工具）账号，自动下载一个录音文件</li>
+    <li><b>能干嘛</b> — 后台查数据、下载账单、批量导出，重复性网页操作全部交给它</li>
+  </ul>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-  <!-- 7 演示4 Email -->
-  <section class="slide">
-    <div class="demo-num">演示 ④</div>
-    <h2 style="margin-top:1.5vh">收发 Email<span class="en">EMAIL</span></h2>
-    <div class="cols">
-      <div class="card" style="flex:1.2">
-        <h3 style="color:var(--green-hi);font-size:2.6vh;margin-bottom:1.5vh">真实案例：高尔夫俱乐部感谢邮件</h3>
-        <ul class="clean" style="font-size:2.3vh">
-          <li>9月26日毕业展在 Killara Golf Club 举办</li>
-          <li>AI 搜索邮件线程 → 找到 Renee 最后一封未回邮件</li>
-          <li>按罗斌口述的意思<b>起草英文感谢邮件</b></li>
-          <li>确认后发出，<b>自动归回原邮件线程</b></li>
-        </ul>
-      </div>
-      <div class="card" style="flex:.8;display:flex;flex-direction:column;justify-content:center">
-        <h3 style="color:var(--gold);font-size:2.4vh;margin-bottom:1.5vh">还能做什么</h3>
-        <ul class="clean" style="font-size:2.2vh">
-          <li>邮件分类总结</li>
-          <li>账单自动识别归档</li>
-          <li>附件自动提取</li>
-          <li>定时提醒跟进</li>
-        </ul>
-      </div>
+<!-- 技能库 -->
+<section>
+  <h2><span class="no">07</span>蜗牛AI 技能库<span class="en">33 SKILLS</span></h2>
+  <p class="sub">以上所有演示，都是技能库里的技能在工作。带 ⭐ 的是今晚用到的。</p>
+  <div class="skillgroups">
+    <div class="card"><h3>🎨 内容创作</h3>
+      <span class="chip star">海报工作室</span><span class="chip star">海报动起来</span><span class="chip">图片/视频生成器</span><span class="chip">3D动画专家团</span><span class="chip">录音转课件</span>
     </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">7 / 10</div>
-  </section>
-
-  <!-- 8 演示5 浏览器自动化 -->
-  <section class="slide">
-    <div class="demo-num">演示 ⑤</div>
-    <h2 style="margin-top:1.5vh">浏览器自动化<span class="en">BROWSER AGENT</span></h2>
-    <div class="cols">
-      <div class="card" style="flex:1.2">
-        <h3 style="color:var(--green-hi);font-size:2.6vh;margin-bottom:1.5vh">演示：登录 Plaud → 自动下载文件</h3>
-        <ul class="clean" style="font-size:2.3vh">
-          <li>登录态已持久化：<b>AI 打开就是已登录状态</b></li>
-          <li>自动浏览录音列表 → 打开文件 → 点下载</li>
-          <li>文件自动落到下载文件夹</li>
-        </ul>
-      </div>
-      <div class="card" style="flex:.8;display:flex;flex-direction:column;justify-content:center">
-        <h3 style="color:var(--gold);font-size:2.4vh;margin-bottom:1.5vh">这个能力意味着</h3>
-        <ul class="clean" style="font-size:2.2vh">
-          <li>没有 API 的网站也能自动化</li>
-          <li>登录 → 点击 → 填表 → 下载 全流程</li>
-          <li>账号安全优先：宁可失败不冒险</li>
-        </ul>
-      </div>
+    <div class="card"><h3>📄 文档办公</h3>
+      <span class="chip star">蜗牛签名</span><span class="chip">PDF 工具箱</span><span class="chip">Word/PPT/Excel</span><span class="chip">发票生成</span>
     </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">8 / 10</div>
-  </section>
-
-  <!-- 9 技能库列表 -->
-  <section class="slide">
-    <h2 style="font-size:4.2vh">蜗牛AI技能库 · 33 个技能<span class="en">SKILL LIBRARY</span></h2>
-    <div class="skillgroups">
-      <div class="card"><h3>🎨 创意生成</h3>
-        <span class="chip star">海报工作室⭐</span><span class="chip star">图片生成器⭐</span><span class="chip star">视频生成器⭐</span><span class="chip star">海报动起来⭐</span></div>
-      <div class="card"><h3>🛠 日常实用</h3>
-        <span class="chip star">签名⭐</span><span class="chip">录音转写课件</span><span class="chip">开发票</span><span class="chip">澳洲房产分析</span><span class="chip">SMS 短信</span><span class="chip">卡拉OK</span><span class="chip">小铃铛</span><span class="chip">关屏幕</span><span class="chip">图像坐标定位</span></div>
-      <div class="card"><h3>📧 邮件与生意</h3>
-        <span class="chip star">邮件助手⭐</span><span class="chip star">问答机器人⭐</span><span class="chip">蜗牛邮局</span><span class="chip">邮件连接器</span><span class="chip">Stripe 收款</span><span class="chip">SEO 推广</span><span class="chip">AI+UI</span></div>
-      <div class="card"><h3>🌱 成长陪伴</h3>
-        <span class="chip">黄帝内经</span><span class="chip">积极心理学</span><span class="chip">赛斯理论</span><span class="chip">EQ 导师</span><span class="chip">成功思维训练</span><span class="chip">养生长寿</span></div>
-      <div class="card"><h3>🧩 学员基建</h3>
-        <span class="chip">技能管理器</span><span class="chip">技能库</span><span class="chip">项目工作室</span><span class="chip">项目策划书</span><span class="chip">意图检验器</span><span class="chip">吉姐姐</span><span class="chip">软妹妹</span></div>
+    <div class="card"><h3>📬 沟通协作</h3>
+      <span class="chip star">邮件助手</span><span class="chip">企业微信</span><span class="chip">短信/CRM</span><span class="chip">浏览器自动化</span>
     </div>
-    <div class="note">⭐ = 今晚演示/重点讲解 · 装技能只需一句话："安装蜗牛AI技能"，每 2 小时自动更新 · 学生自己做的技能也能发布给全班用</div>
-    <div class="brand">SNAIL AI</div><div class="pageno">9 / 10</div>
-  </section>
-
-  <!-- 10 结尾 CTA -->
-  <section class="slide">
-    <div class="tag" style="border-color:var(--gold);color:var(--gold)">今晚专属 · 仅限今晚</div>
-    <div class="qrwrap">
-      <div style="flex:1.2">
-        <div class="bigprice">$1,999<br><span style="font-size:5vh;color:var(--text)">买一送一</span></div>
-        <div class="sub" style="font-size:2.8vh;margin-top:2vh">一人付费，<b class="gold">两人上课</b> —— 只限今晚直播间</div>
-        <div class="sub" style="font-size:2.4vh;margin-top:3vh">
-          📅 第二期 2026年10月24日开班 · 每周六 1–5PM<br>
-          🎓 毕业展作品回顾：<br>
-          <span class="accent" style="font-size:2.6vh">snail-ai-academy.github.io/gradshow2026</span>
-        </div>
-        <div style="margin-top:4vh"><span class="pulse">今晚交钱 · 立享买一送一 → 扫码入群</span></div>
-      </div>
-      <div class="qrbox"><img src="images/course_qr.jpg" alt="扫码入群"></div>
+    <div class="card"><h3>📊 数据与网站</h3>
+      <span class="chip">网站编辑器</span><span class="chip">表格分析</span><span class="chip">学生门户</span><span class="chip">项目策划书</span>
     </div>
-    <div class="brand">SNAIL AI</div><div class="pageno">10 / 10</div>
-  </section>
+    <div class="card"><h3>🚀 进阶玩家</h3>
+      <span class="chip">自动化任务</span><span class="chip">技能开发</span><span class="chip">发布自己的技能</span>
+    </div>
+  </div>
+  <p class="note">完整列表今晚发到群里。学员也可以开发并发布自己的技能——这是第二期课程的重要内容。</p>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
 
-</div>
+<!-- CTA -->
+<section style="border-bottom:none">
+  <div class="tag">O N L Y &nbsp; T O N I G H T</div>
+  <h2>今晚报名，<span class="gold">买一送一</span></h2>
+  <div class="cta">
+    <div style="flex:1">
+      <div class="bigprice">$1,999</div>
+      <p style="font-size:2.4vh;margin-top:1vh;color:#bfe8d4">AI 应用课 · 第二期 · 2026 年 10 月 24 日开班</p>
+      <p style="font-size:2.2vh;margin-top:1vh;color:#eaf5ef">一人付费，<b>两人上课</b> —— 带上朋友、家人或合伙人</p>
+      <span class="pulse">⏰ 仅限今晚直播间 · 过时恢复原价</span>
+    </div>
+    <div class="qrbox">
+      <img src="images/course_qr.jpg" alt="扫码入群">
+      <p>扫码入群 · 报名缴费</p>
+    </div>
+  </div>
+  <p class="sub" style="margin-top:3vh">想先看看我们毕业展学员做出了什么？<a href="https://snail-ai-academy.github.io/gradshow2026/" target="_blank">首届毕业展作品 →</a></p>
+  <div class="brand">SNAIL AI ACADEMY · snailai.au</div>
+</section>
+
 <script>
-  const slides=[...document.querySelectorAll('.slide')];let cur=0;
-  function show(n){slides[cur].classList.remove('active');cur=Math.max(0,Math.min(slides.length-1,n));
-    slides[cur].classList.add('active');
-    const v=slides[cur].querySelector('video');if(v){v.play().catch(()=>{});}}
-  document.addEventListener('keydown',e=>{
-    if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key))show(cur+1);
-    if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key))show(cur-1);});
-  document.addEventListener('click',e=>{if(!e.target.closest('video,a,button'))show(cur+1);});
+  const bar = document.getElementById('bar');
+  addEventListener('scroll', () => {
+    const h = document.documentElement;
+    bar.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+  });
+  document.querySelectorAll('video').forEach(v => v.play().catch(()=>{}));
 </script>
 </body>
 </html>
